@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">prova1-erick-jhone-rodrigues-da-silva</string>
+    <string name="novo_jogo">Novo jogo\t\t\t</string>
+
+    <string-array name="animal_names">
+        <item>Rato</item>
+        <item>Bufalo</item>
+        <item>Tigre</item>
+        <item>Coelho</item>
+        <item>Dragão</item>
+        <item>Serpente</item>
+        <item>Cavalo</item>
+        <item>Cabra</item>
+        <item>Macaco</item>
+        <item>Galo</item>
+        <item>Cão</item>
+        <item>Javali</item>
+    </string-array>
+
+    <string-array name="animal_attributes">
+        <item>Curiosidade</item>
+        <item>Conservador</item>
+        <item>Vigor</item>
+        <item>Afortunado</item>
+        <item>Vitalidade</item>
+        <item>Pensamento</item>
+        <item>Liberdade</item>
+        <item>Integridade</item>
+        <item>Inventor</item>
+        <item>Heroísmo</item>
+        <item>Lealdade</item>
+        <item>Honestidade</item>
+    </string-array>
+</resources>
