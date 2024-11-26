@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.R;
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.data.ItemListRepository;
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.ItemList;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.Player;
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.utils.CalculatorValueUtil;
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.view.MyDialogList;
 
@@ -25,8 +26,9 @@ public class NewGameActivity extends AppCompatActivity implements MyDialogList.O
     private Button buttonConfirmQuantityItemsDrawn;
     private EditText editTextQuantityItemsDrawn, editTextBirthDate, editTextNamePlayer;
     private CalculatorValueUtil calculateValueUtil = new CalculatorValueUtil();
-    private int totalAnimalValue = 0; // Note the initialization
-    private ArrayList<ItemList> animals = new ArrayList<>(); // Make animals a class member if needed elsewhere
+    private int totalAnimalValue = 0;
+    private ArrayList<ItemList> animals = new ArrayList<>();
+    private Player player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,15 @@ public class NewGameActivity extends AppCompatActivity implements MyDialogList.O
         setContentView(R.layout.activity_new_game);
 
         initUIComponents();
+
+        Intent intent = getIntent();
+        player = intent.getParcelableExtra("player");
+
+        if (player != null) {
+            setTitle("New Game for " + player.getName());
+            editTextNamePlayer.setVisibility(View.GONE);
+            editTextBirthDate.setVisibility(View.GONE);
+        }
     }
 
     private void initUIComponents() {
@@ -52,10 +63,10 @@ public class NewGameActivity extends AppCompatActivity implements MyDialogList.O
     }
 
     public void drawAnimals(String quantity) {
-        animals.clear(); // Clear previous selections
-        totalAnimalValue = 0; // Reset total value
+        animals.clear();
+        totalAnimalValue = 0;
 
-        Integer quantityAnimalsForDraw = Integer.parseInt(quantity);
+        int quantityAnimalsForDraw = Integer.parseInt(quantity);
         Random random = new Random();
         List<ItemList> allItems = ItemListRepository.getMockedItemList(this);
 
@@ -67,13 +78,9 @@ public class NewGameActivity extends AppCompatActivity implements MyDialogList.O
             }
         }
 
-        // Prepare a list of animal names to display in the dialog
         ArrayList<String> animalNames = new ArrayList<>();
         for (ItemList animal : animals) {
             animalNames.add(animal.getName());
-        }
-
-        for (ItemList animal : animals) {
             totalAnimalValue += calculateValueUtil.calculateVogais(animal.getName()) +
                     calculateValueUtil.calculateConsoantes(animal.getAssociateWord());
         }
@@ -84,12 +91,18 @@ public class NewGameActivity extends AppCompatActivity implements MyDialogList.O
 
     @Override
     public void onConfirm() {
-        String playerName = editTextNamePlayer.getText().toString();
-        String birthDate = editTextBirthDate.getText().toString();
+        if (player == null) {
+            player = new Player(
+                    editTextNamePlayer.getText().toString(),
+                    editTextBirthDate.getText().toString(),
+                    0
+            );
+        } else {
+            player = new Player(player.getName(), player.getBirthDate(), player.getScore());
+        }
 
         Intent intent = new Intent(this, NumberPredictionActivity.class);
-        intent.putExtra("playerName", playerName);
-        intent.putExtra("birthDate", birthDate);
+        intent.putExtra("player", player);
         intent.putExtra("totalAnimalValue", totalAnimalValue);
 
         startActivity(intent);

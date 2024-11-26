@@ -84,5 +84,4 @@ public class ValuesActivity extends AppCompatActivity {
         textViewWordValue.setText("Valor palavra: " + calculatorValueUtil.calculateConsoantes(items.get(itemIndice).getAssociateWord()));
         textViewTotalValue.setText("Total: " + (calculatorValueUtil.calculateVogais(items.get(itemIndice).getName()) + calculatorValueUtil.calculateConsoantes(items.get(itemIndice).getAssociateWord())));
     }
-
 }

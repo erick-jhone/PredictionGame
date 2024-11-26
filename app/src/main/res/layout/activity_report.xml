@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
+    <include layout= "@layout/app_toolbar"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,21 +29,27 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Guess"
+                    android:text="N° Tentativa"
+                    android:textStyle="bold"
+                    android:padding="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jogada"
                     android:textStyle="bold"
                     android:padding="8dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Attempt"
+                    android:text="Valor esperado"
                     android:textStyle="bold"
                     android:padding="8dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Result"
+                    android:text="Resultado"
                     android:textStyle="bold"
                     android:padding="8dp" />
             </TableRow>

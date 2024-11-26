@@ -36,7 +36,6 @@ public class MyDialog extends DialogFragment {
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
-        Toast.makeText(getActivity().getApplicationContext(), "Fechando o AlertDialog!", Toast.LENGTH_SHORT).show();
     }
 
 

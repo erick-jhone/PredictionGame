@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.R;
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.Guess;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.Player;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ public class NumberPredictionActivity extends AppCompatActivity {
 
     private int totalAnimalValue;
     private int attempts = 0;
+    private Player player;
     private ImageView heart1, heart2, heart3;
     private EditText guessEditText;
     private ArrayList<Guess> guesses = new ArrayList<>();
@@ -33,6 +35,7 @@ public class NumberPredictionActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             totalAnimalValue = extras.getInt("totalAnimalValue", 0);
+            player = extras.getParcelable("player");
         }
 
         guessEditText = findViewById(R.id.editTextText);
@@ -58,6 +61,7 @@ public class NumberPredictionActivity extends AppCompatActivity {
 
             if (guessObject.isResultCorrect()) {
                 Toast.makeText(this, "Correct! You guessed it!", Toast.LENGTH_SHORT).show();
+                player.setScore(player.getScore() + 10);
                 navigateToReport();
             } else {
                 attempts++;
@@ -76,6 +80,7 @@ public class NumberPredictionActivity extends AppCompatActivity {
     private void navigateToReport() {
         Intent intent = new Intent(NumberPredictionActivity.this, ReportActivity.class);
         intent.putParcelableArrayListExtra("guessList", guesses);
+        intent.putExtra("player", player);
         startActivity(intent);
     }
 
