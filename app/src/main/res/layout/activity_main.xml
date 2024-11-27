@@ -45,7 +45,7 @@
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/tertiaryColor"
             android:shadowColor="#fdac00"
-            android:text="Ver valores por signo"
+            android:text="@string/ver_valores_por_signo"
             android:textColor="@color/secondaryColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

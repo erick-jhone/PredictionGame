@@ -31,4 +31,7 @@
     <string name="seu_animal_no_zod_aco_chin_s">"Seu animal no zodíaco chinês é: "</string>
     <string name="esses_foram_os_animais_sorteados">Esses foram os animais sorteados</string>
     <string name="jogar">Jogar</string>
+    <string name="ver_valores_por_signo">Ver valores por signo</string>
+    <string name="data_de_nascimento_example">Data de nascimento ( Ex: 01/05/1999 )</string>
+    <string name="jogo_zodiaco_chines">Jogo Zodiaco Chinês</string>
 </resources>
