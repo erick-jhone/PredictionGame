@@ -46,21 +46,18 @@ public class ResultDialog extends DialogFragment {
         ImageView imageResult = view.findViewById(R.id.imageResult);
 
         if (isCorrect) {
-            textViewTitle.setText("Parabéns, você acertou!");
+            textViewTitle.setText(getString(R.string.parabens_voce_acertou));
             imageResult.setImageResource(R.drawable.trofeu);
         } else {
-            textViewTitle.setText("Você excedeu as tentativas!");
+            textViewTitle.setText(getString(R.string.voce_excedeu_as_tentativas));
             imageResult.setImageResource(R.drawable.game_over);
         }
 
-        buttonConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null) {
-                    listener.onConfirmDelete();
-                }
-                dismiss();
+        buttonConfirm.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onConfirmDelete();
             }
+            dismiss();
         });
 
         builder.setView(view);

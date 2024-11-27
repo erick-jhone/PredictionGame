@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.R;
+
 import java.util.ArrayList;
 
 public class MyDialogList extends DialogFragment {
@@ -31,13 +33,13 @@ public class MyDialogList extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         String[] animalsArray = animals.toArray(new String[0]);
 
-        return builder.setTitle("Esses foram os animais sorteados")
+        return builder.setTitle(getString(R.string.esses_foram_os_animais_sorteados))
                 .setItems(animalsArray, null)
-                .setPositiveButton("Jogar", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.jogar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (listener != null) {
-                            listener.onConfirm(); // Trigger the callback on confirm button press
+                            listener.onConfirm();
                         }
                     }
                 })

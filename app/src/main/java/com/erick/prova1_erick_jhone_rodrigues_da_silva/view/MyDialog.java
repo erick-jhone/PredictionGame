@@ -40,6 +40,4 @@ public class MyDialog extends DialogFragment {
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
     }
-
-
 }

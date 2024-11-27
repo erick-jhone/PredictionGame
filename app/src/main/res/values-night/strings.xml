@@ -20,4 +20,15 @@
     <string name="valor_palavra">"Valor palavra: "</string>
     <string name="total">"Total: "</string>
     <string name="insira_um_numero_valido">Insira um número válido</string>
+    <string name="parabens_voce_acertou">Parabéns, você acertou!</string>
+    <string name="voce_excedeu_as_tentativas">Você excedeu as tentativas!</string>
+    <string name="pontos">" pontos \n"</string>
+    <string name="deseja_iniciar_um_novo_jogo">Deseja iniciar um novo jogo?</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
+    <string name="continuar_com_o_jogador_logado">Continuar com o jogador logado?</string>
+    <string name="fechar">Fechar</string>
+    <string name="seu_animal_no_zod_aco_chin_s">"Seu animal no zodíaco chinês é: "</string>
+    <string name="esses_foram_os_animais_sorteados">Esses foram os animais sorteados</string>
+    <string name="jogar">Jogar</string>
 </resources>

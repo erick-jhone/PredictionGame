@@ -19,6 +19,7 @@ import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.Guess;
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.Player;
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.utils.ChineseZodiacCalculatorUtil;
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.utils.ToolbarUtil;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.utils.navigation.NavigationKeys;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -29,49 +30,68 @@ public class ReportActivity extends AppCompatActivity {
     private ArrayList<Guess> guessList;
     private Player player;
     private Set<String> currentScoreSet;
+    TableLayout tableLayout;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
-        Toolbar toolbar = findViewById(R.id.appToolbar);
-        ToolbarUtil.setupToolbar(this, toolbar, "", false);
-        TableLayout tableLayout = findViewById(R.id.tableLayout);
+        initUIComponents();
+        initScore();
+        getExtras();
+        checkIfHasGuessList();
+    }
 
-        Intent intent = getIntent();
-        guessList = intent.getParcelableArrayListExtra("guessList");
-        player = intent.getParcelableExtra("player");
-
+    private void initScore() {
         currentScoreSet = new HashSet<>();
+    }
 
+    private void initUIComponents() {
+        toolbar = findViewById(R.id.appToolbar);
+        ToolbarUtil.setupToolbar(this, toolbar, "", false);
+        tableLayout = findViewById(R.id.tableLayout);
+    }
+
+    private void checkIfHasGuessList() {
         if (guessList != null) {
             for (Guess guess : guessList) {
-                currentScoreSet.add(formatSetEntry(player.getName(), guess.getInputedAttemp(), player.getScore()));
-                addGuessToTable(guess, tableLayout, guessList.indexOf(guess) + 1);
+                insertInSetAndTable(guess);
             }
         }
+    }
+
+    private void insertInSetAndTable(Guess guess) {
+        currentScoreSet.add(formatSetEntry(player.getName(), guess.getInputedAttemp(), player.getScore()));
+        addGuessToTable(guess, tableLayout, guessList.indexOf(guess) + 1);
+    }
+
+    private void getExtras() {
+        Intent intent = getIntent();
+        guessList = intent.getParcelableArrayListExtra(NavigationKeys.GUESS_LIST);
+        player = intent.getParcelableExtra(NavigationKeys.PLAYER);
     }
 
     private void addGuessToTable(Guess guess, TableLayout tableLayout, int attemptNumber) {
         TableRow tableRow = new TableRow(this);
 
-        TextView tvAttemptNumber = new TextView(this);
-        tvAttemptNumber.setTextSize(24);
-        tvAttemptNumber.setText("  " + String.format("%d°", attemptNumber));
-        tvAttemptNumber.setTextColor(0xFFD3D3D3); // Cinza claro
-        tableRow.addView(tvAttemptNumber);
+        TextView textViewAttemptNumber = new TextView(this);
+        textViewAttemptNumber.setTextSize(24);
+        textViewAttemptNumber.setText("  " + String.format("%d°", attemptNumber));
+        textViewAttemptNumber.setTextColor(0xFFD3D3D3);
+        tableRow.addView(textViewAttemptNumber);
 
         TextView tvGuess = new TextView(this);
         tvGuess.setTextSize(24);
         tvGuess.setText("  " + Integer.toString(guess.getInputedAttemp()));
-        tvGuess.setTextColor(0xFFD3D3D3); // Cinza claro
+        tvGuess.setTextColor(0xFFD3D3D3);
         tableRow.addView(tvGuess);
 
         TextView tvAttempt = new TextView(this);
         tvAttempt.setTextSize(24);
         tvAttempt.setText("  " + Integer.toString(guess.getCorrectValue()));
-        tvAttempt.setTextColor(0xFFD3D3D3); // Cinza claro
+        tvAttempt.setTextColor(0xFFD3D3D3);
         tableRow.addView(tvAttempt);
 
         ImageView ivResult = new ImageView(this);
@@ -89,7 +109,7 @@ public class ReportActivity extends AppCompatActivity {
     }
 
     private String formatSetEntry(String name, int guess, int score) {
-        return "\n" + name + " | " + guess + " | " + score + " pontos \n";
+        return "\n" + name + " | " + guess + " | " + score + getString(R.string.pontos) + "\n";
     }
 
     @Override
@@ -100,9 +120,9 @@ public class ReportActivity extends AppCompatActivity {
 
     private void showNewGameDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Deseja iniciar um novo jogo?")
-                .setPositiveButton("Sim", (dialog, id) -> newGameWithSamePlayerDialog())
-                .setNegativeButton("Não", (dialog, id) -> dialog.dismiss());
+        builder.setMessage(getString(R.string.deseja_iniciar_um_novo_jogo))
+                .setPositiveButton(R.string.sim, (dialog, id) -> newGameWithSamePlayerDialog())
+                .setNegativeButton(R.string.nao, (dialog, id) -> dialog.dismiss());
 
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -111,16 +131,16 @@ public class ReportActivity extends AppCompatActivity {
     private void startNewGame(boolean continueWithSamePlayer) {
         Intent intent = new Intent(ReportActivity.this, NewGameActivity.class);
         if (continueWithSamePlayer) {
-            intent.putExtra("player", player);
+            intent.putExtra(NavigationKeys.PLAYER, player);
         }
         startActivity(intent);
     }
 
     private void newGameWithSamePlayerDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Continuar com o jogador logado?")
-                .setPositiveButton("Sim", (dialog, id) -> startNewGame(true))
-                .setNegativeButton("Não", (dialog, id) -> startNewGame(false));
+        builder.setMessage(getString(R.string.continuar_com_o_jogador_logado))
+                .setPositiveButton(getString(R.string.sim), (dialog, id) -> startNewGame(true))
+                .setNegativeButton(getString(R.string.nao), (dialog, id) -> startNewGame(false));
 
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -129,15 +149,15 @@ public class ReportActivity extends AppCompatActivity {
     private void callScoreDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(currentScoreSet.toString())
-                .setPositiveButton("Fechar", (dialog, id) -> dialog.dismiss());
+                .setPositiveButton(R.string.fechar, (dialog, id) -> dialog.dismiss());
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
     private void callAnimalPlayerDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Seu animal no zodíaco chinês é: " + ChineseZodiacCalculatorUtil.getZodiacAnimal(this, player.getBirthDate()))
-                .setPositiveButton("Fechar", (dialog, id) -> dialog.dismiss());
+        builder.setMessage(getString(R.string.seu_animal_no_zod_aco_chin_s) + ChineseZodiacCalculatorUtil.getZodiacAnimal(this, player.getBirthDate()))
+                .setPositiveButton(R.string.fechar, (dialog, id) -> dialog.dismiss());
         AlertDialog dialog = builder.create();
         dialog.show();
     }
