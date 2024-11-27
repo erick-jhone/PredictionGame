@@ -11,11 +11,9 @@ public class ItemListRepository {
     public static ArrayList<ItemList> getMockedItemList(Context context) {
         ArrayList<ItemList> itemList = new ArrayList<>();
 
-        // Access the string arrays from resources
         String[] animalNames = context.getResources().getStringArray(R.array.animal_names);
         String[] animalAttributes = context.getResources().getStringArray(R.array.animal_attributes);
 
-        // Ensure that we have the same number of names and attributes
         int[] images = {R.drawable.rato, R.drawable.bufalo, R.drawable.tigre, R.drawable.coelho,
                 R.drawable.dragao, R.drawable.serpente, R.drawable.cavalo, R.drawable.cabra,
                 R.drawable.macaco, R.drawable.galo, R.drawable.cao, R.drawable.javali};

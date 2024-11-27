@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primaryColor"
     tools:context=".view.activities.ValuesActivity">
 
     <ImageView
@@ -24,6 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:text="TextView"
+        android:textColor="@color/secondaryColor"
+        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -34,7 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="TextView"
+        android:textColor="@color/secondaryColor"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewValueName" />
@@ -43,8 +48,10 @@
         android:id="@+id/textViewTotalValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/secondaryColor"
         android:layout_marginTop="36dp"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.Material3.DisplayMedium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +62,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
-        android:text="Próximo"
+        android:text="@string/proximo"
+        android:backgroundTint="@color/tertiaryColor"
+        android:textColor="@color/secondaryColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTotalValue" />

@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="novo_jogo">Novo jogo\t\t\t</string>
+    <string name="quantidade_de_itens_a_serem_sorteados">Quantidade de itens a serem sorteados</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="qual_a_soma_dos_animais_sorteados">Qual a soma dos animais sorteados?</string>
+    <string name="confirmar_tentativa">Confirmar tentativa</string>
+    <string name="resumo_das_tentativas">Resumo das tentativas</string>
+    <string name="n_tentativa">N° Tentativa</string>
+    <string name="jogada">Jogada</string>
+    <string name="valor_esperado">Valor esperado</string>
+    <string name="resultado">Resultado</string>
 </resources>

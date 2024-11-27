@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/primaryColor"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,6 +10,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/primaryColor"
         tools:context=".view.activities.NewGameActivity">
 
         <TextView
@@ -17,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
             android:text="@string/novo_jogo"
+            android:textColor="@color/secondaryColor"
             android:textAppearance="@style/TextAppearance.Material3.DisplaySmall"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -34,20 +37,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewTitle">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="8dp"
-                android:text="Nome" />
-
             <EditText
                 android:id="@+id/editTextNamePlayer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="text" />
+                android:hint="Nome"
+                android:background="@drawable/rounded_edittext"
+                android:padding="12dp"
+            android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout
@@ -61,19 +60,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayoutNamePlayer">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="8dp"
-                android:text="Data de nascimento" />
-
             <EditText
                 android:id="@+id/editTextBirthDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="Data de nascimento ( Ex: 01/05/1999 )"
+                android:background="@drawable/rounded_edittext"
+                android:padding="12dp"
                 android:inputType="date" />
         </LinearLayout>
 
@@ -93,50 +88,36 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:gravity="center_horizontal"
-                android:text="Quantidade de itens a serem sorteados" />
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                android:textColor="@color/secondaryColor"
+                android:text="@string/quantidade_de_itens_a_serem_sorteados" />
 
             <EditText
                 android:id="@+id/editTextQuantityItemsDrawn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
+                android:layout_marginTop="12dp"
                 android:layout_marginHorizontal="46dp"
+                android:padding="12dp"
+                android:background="@drawable/rounded_edittext"
                 android:ems="10"
-                android:inputType="text" />
+                android:inputType="number" />
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/listViewItemsDrawn"
-            android:layout_width="384dp"
-            android:layout_height="400dp"
-            android:layout_marginTop="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonConfirmQuantityItemsDrawn" />
 
         <Button
             android:id="@+id/buttonConfirmQuantityItemsDrawn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Confirmar"
+            android:text="@string/confirmar"
+            android:backgroundTint="@color/tertiaryColor"
             app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/secondaryColor"
             app:layout_constraintHorizontal_bias="0.843"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
-        <Button
-            android:id="@+id/buttonGoToTentativeScreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Estou pronto para Jogar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.923"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listViewItemsDrawn"
-            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

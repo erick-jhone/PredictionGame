@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:backgroundTint="@color/primaryColor"
+    android:fitsSystemWindows="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutTech"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/primaryColor"
         tools:context=".activities.MainActivity">
 
         <ListView
             android:id="@+id/listViewOptions"
             android:layout_width="344dp"
-            android:layout_height="1500dp"
+            android:layout_height="1100dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="44dp"
+            android:background="@color/primaryColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
@@ -24,9 +28,10 @@
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="250dp"
-            android:layout_height="194dp"
+            android:layout_height="250dp"
             android:layout_marginTop="28dp"
-            android:src="@drawable/zodiaco_chines"
+            android:backgroundTint="@color/primaryColor"
+            android:src="@drawable/logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,8 +42,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="@color/tertiaryColor"
+            android:shadowColor="#fdac00"
             android:text="Ver valores por signo"
+            android:textColor="@color/secondaryColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

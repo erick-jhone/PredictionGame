@@ -12,9 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Prova1erickjhonerodriguesdasilva"
         tools:targetApi="31">
-        <activity
-            android:name=".view.MyDialogNewGame"
-            android:exported="false" />
+
         <activity
             android:name=".view.activities.ReportActivity"
             android:exported="false" />

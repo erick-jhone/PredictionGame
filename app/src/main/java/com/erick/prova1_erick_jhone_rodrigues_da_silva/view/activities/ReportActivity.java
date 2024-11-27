@@ -17,14 +17,18 @@ import androidx.appcompat.widget.Toolbar;
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.R;
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.Guess;
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.Player;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.utils.ChineseZodiacCalculatorUtil;
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.utils.ToolbarUtil;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ReportActivity extends AppCompatActivity {
 
     private ArrayList<Guess> guessList;
     private Player player;
+    private Set<String> currentScoreSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +43,11 @@ public class ReportActivity extends AppCompatActivity {
         guessList = intent.getParcelableArrayListExtra("guessList");
         player = intent.getParcelableExtra("player");
 
+        currentScoreSet = new HashSet<>();
+
         if (guessList != null) {
             for (Guess guess : guessList) {
+                currentScoreSet.add(formatSetEntry(player.getName(), guess.getValue(), player.getScore()));
                 addGuessToTable(guess, tableLayout, guessList.indexOf(guess) + 1);
             }
         }
@@ -51,17 +58,20 @@ public class ReportActivity extends AppCompatActivity {
 
         TextView tvAttemptNumber = new TextView(this);
         tvAttemptNumber.setTextSize(24);
-        tvAttemptNumber.setText(String.format("%d°", attemptNumber));
+        tvAttemptNumber.setText("  " + String.format("%d°", attemptNumber));
+        tvAttemptNumber.setTextColor(0xFFD3D3D3); // Cinza claro
         tableRow.addView(tvAttemptNumber);
 
         TextView tvGuess = new TextView(this);
         tvGuess.setTextSize(24);
-        tvGuess.setText(Integer.toString(guess.getValue()));
+        tvGuess.setText("  " + Integer.toString(guess.getValue()));
+        tvGuess.setTextColor(0xFFD3D3D3); // Cinza claro
         tableRow.addView(tvGuess);
 
         TextView tvAttempt = new TextView(this);
         tvAttempt.setTextSize(24);
-        tvAttempt.setText(Integer.toString(guess.getAttempt()));
+        tvAttempt.setText("  " + Integer.toString(guess.getAttempt()));
+        tvAttempt.setTextColor(0xFFD3D3D3); // Cinza claro
         tableRow.addView(tvAttempt);
 
         ImageView ivResult = new ImageView(this);
@@ -76,6 +86,10 @@ public class ReportActivity extends AppCompatActivity {
 
         tableRow.addView(ivResult);
         tableLayout.addView(tableRow);
+    }
+
+    private String formatSetEntry(String name, int guess, int score) {
+        return "\n" + name + " | " + guess + " | " + score + " pontos \n";
     }
 
     @Override
@@ -114,7 +128,7 @@ public class ReportActivity extends AppCompatActivity {
 
     private void callScoreDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Sua pontuação atual é: " + player.getScore() + " pontos.")
+        builder.setMessage(currentScoreSet.toString())
                 .setPositiveButton("Fechar", (dialog, id) -> dialog.dismiss());
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -122,7 +136,7 @@ public class ReportActivity extends AppCompatActivity {
 
     private void callAnimalPlayerDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Seu animal no zodíaco chinês é: " + player.getBirthDate())
+        builder.setMessage("Seu animal no zodíaco chinês é: " + ChineseZodiacCalculatorUtil.getZodiacAnimal(this, player.getBirthDate()))
                 .setPositiveButton("Fechar", (dialog, id) -> dialog.dismiss());
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -147,5 +161,4 @@ public class ReportActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);    }
-
 }

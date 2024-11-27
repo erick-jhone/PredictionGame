@@ -46,6 +46,7 @@ public class Player implements Parcelable {
 
     public void setScore(int score) {
         this.score = score;
+
     }
 
     @Override
