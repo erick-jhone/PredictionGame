@@ -11,16 +11,16 @@ import android.widget.TextView;
 
 
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.R;
-import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.ItemList;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.Sign;
 
 import java.util.ArrayList;
 
-public class ItemListAdapter extends BaseAdapter {
+public class SignItemAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
-    private ArrayList<ItemList> items;
+    private ArrayList<Sign> items;
 
-    public ItemListAdapter(Context context, ArrayList<ItemList> items) {
+    public SignItemAdapter(Context context, ArrayList<Sign> items) {
         this.items = items;
         inflater = LayoutInflater.from(context);
     }
@@ -31,7 +31,7 @@ public class ItemListAdapter extends BaseAdapter {
     }
 
     @Override
-    public ItemList getItem(int position) {
+    public Sign getItem(int position) {
         return items.get(position);
     }
 
@@ -42,7 +42,7 @@ public class ItemListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ItemList item = items.get(position);
+        Sign item = items.get(position);
         convertView = inflater.inflate(R.layout.item_list, null);
         TextView text = convertView.findViewById(R.id.textViewItemList);
         text.setText(item.getName());

@@ -6,8 +6,6 @@ import com.erick.prova1_erick_jhone_rodrigues_da_silva.R;
 
 public class ChineseZodiacCalculatorUtil {
 
-    private Context context;
-
     public ChineseZodiacCalculatorUtil() {
 
     }

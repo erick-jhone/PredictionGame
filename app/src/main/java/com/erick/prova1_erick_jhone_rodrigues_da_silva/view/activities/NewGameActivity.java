@@ -5,16 +5,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.R;
-import com.erick.prova1_erick_jhone_rodrigues_da_silva.data.ItemListRepository;
-import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.ItemList;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.data.SignRepository;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.Sign;
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.Player;
-import com.erick.prova1_erick_jhone_rodrigues_da_silva.utils.CalculatorValueUtil;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.utils.CalculatorValueWordUtil;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.utils.navigation.NavigationKeys;
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.view.MyDialogList;
 
 import java.util.ArrayList;
@@ -25,9 +25,9 @@ public class NewGameActivity extends AppCompatActivity implements MyDialogList.O
 
     private Button buttonConfirmQuantityItemsDrawn;
     private EditText editTextQuantityItemsDrawn, editTextBirthDate, editTextNamePlayer;
-    private CalculatorValueUtil calculateValueUtil = new CalculatorValueUtil();
+    private CalculatorValueWordUtil calculateValueUtil = new CalculatorValueWordUtil();
     private int totalAnimalValue = 0;
-    private ArrayList<ItemList> animals = new ArrayList<>();
+    private ArrayList<Sign> animals = new ArrayList<>();
     private Player player;
 
     @Override
@@ -37,15 +37,8 @@ public class NewGameActivity extends AppCompatActivity implements MyDialogList.O
         setContentView(R.layout.activity_new_game);
 
         initUIComponents();
-
-        Intent intent = getIntent();
-        player = intent.getParcelableExtra("player");
-
-        if (player != null) {
-            setTitle("New Game for " + player.getName());
-            editTextNamePlayer.setVisibility(View.GONE);
-            editTextBirthDate.setVisibility(View.GONE);
-        }
+        getExtras();
+        userLoggedInVerify();
     }
 
     private void initUIComponents() {
@@ -53,13 +46,23 @@ public class NewGameActivity extends AppCompatActivity implements MyDialogList.O
         editTextQuantityItemsDrawn = findViewById(R.id.editTextQuantityItemsDrawn);
         editTextBirthDate = findViewById(R.id.editTextBirthDate);
         editTextNamePlayer = findViewById(R.id.editTextNamePlayer);
+        setupListeners();
+    }
 
-        buttonConfirmQuantityItemsDrawn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawAnimals(editTextQuantityItemsDrawn.getText().toString());
-            }
-        });
+    private void setupListeners() {
+        buttonConfirmQuantityItemsDrawn.setOnClickListener(view -> drawAnimals(editTextQuantityItemsDrawn.getText().toString()));
+    }
+
+    private void userLoggedInVerify() {
+        if (player != null) {
+            editTextNamePlayer.setVisibility(View.GONE);
+            editTextBirthDate.setVisibility(View.GONE);
+        }
+    }
+
+    private void getExtras() {
+        Intent intent = getIntent();
+        player = intent.getParcelableExtra(NavigationKeys.PLAYER);
     }
 
     public void drawAnimals(String quantity) {
@@ -68,23 +71,27 @@ public class NewGameActivity extends AppCompatActivity implements MyDialogList.O
 
         int quantityAnimalsForDraw = Integer.parseInt(quantity);
         Random random = new Random();
-        List<ItemList> allItems = ItemListRepository.getMockedItemList(this);
+        List<Sign> allItems = SignRepository.getMockedsSignItemList(this);
 
         while (animals.size() < quantityAnimalsForDraw) {
             int randomIndex = random.nextInt(allItems.size());
-            ItemList randomAnimal = allItems.get(randomIndex);
+            Sign randomAnimal = allItems.get(randomIndex);
             if (!animals.contains(randomAnimal)) {
                 animals.add(randomAnimal);
             }
         }
 
         ArrayList<String> animalNames = new ArrayList<>();
-        for (ItemList animal : animals) {
+        for (Sign animal : animals) {
             animalNames.add(animal.getName());
-            totalAnimalValue += calculateValueUtil.calculateVogais(animal.getName()) +
-                    calculateValueUtil.calculateConsoantes(animal.getAssociateWord());
+            totalAnimalValue += calculateValueUtil.calculateVoweis(animal.getName()) +
+                    calculateValueUtil.calculateConsonants(animal.getAssociateWord());
         }
 
+        showDrawedAnimalsDialog(animalNames);
+    }
+
+    private void showDrawedAnimalsDialog(ArrayList<String> animalNames) {
         MyDialogList dialog = new MyDialogList(animalNames, this);
         dialog.show(getSupportFragmentManager(), "AnimalDialog");
     }
@@ -97,14 +104,14 @@ public class NewGameActivity extends AppCompatActivity implements MyDialogList.O
                     editTextBirthDate.getText().toString(),
                     0
             );
-        } else {
-            player = new Player(player.getName(), player.getBirthDate(), player.getScore());
         }
+        navigateToPredictionScreen();
+    }
 
+    private void navigateToPredictionScreen() {
         Intent intent = new Intent(this, NumberPredictionActivity.class);
-        intent.putExtra("player", player);
-        intent.putExtra("totalAnimalValue", totalAnimalValue);
-
+        intent.putExtra(NavigationKeys.PLAYER, player);
+        intent.putExtra(NavigationKeys.TOTAL_ANIMAL_VALUE, totalAnimalValue);
         startActivity(intent);
     }
 }

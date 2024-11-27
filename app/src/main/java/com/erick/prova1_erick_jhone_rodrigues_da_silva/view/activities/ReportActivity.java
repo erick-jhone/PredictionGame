@@ -47,7 +47,7 @@ public class ReportActivity extends AppCompatActivity {
 
         if (guessList != null) {
             for (Guess guess : guessList) {
-                currentScoreSet.add(formatSetEntry(player.getName(), guess.getValue(), player.getScore()));
+                currentScoreSet.add(formatSetEntry(player.getName(), guess.getInputedAttemp(), player.getScore()));
                 addGuessToTable(guess, tableLayout, guessList.indexOf(guess) + 1);
             }
         }
@@ -64,13 +64,13 @@ public class ReportActivity extends AppCompatActivity {
 
         TextView tvGuess = new TextView(this);
         tvGuess.setTextSize(24);
-        tvGuess.setText("  " + Integer.toString(guess.getValue()));
+        tvGuess.setText("  " + Integer.toString(guess.getInputedAttemp()));
         tvGuess.setTextColor(0xFFD3D3D3); // Cinza claro
         tableRow.addView(tvGuess);
 
         TextView tvAttempt = new TextView(this);
         tvAttempt.setTextSize(24);
-        tvAttempt.setText("  " + Integer.toString(guess.getAttempt()));
+        tvAttempt.setText("  " + Integer.toString(guess.getCorrectValue()));
         tvAttempt.setTextColor(0xFFD3D3D3); // Cinza claro
         tableRow.addView(tvAttempt);
 

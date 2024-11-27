@@ -3,11 +3,11 @@ package com.erick.prova1_erick_jhone_rodrigues_da_silva.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CalculatorValueUtil {
+public class CalculatorValueWordUtil {
 
     Map<String, Integer> map = new HashMap<>();
 
-    public CalculatorValueUtil(){
+    public CalculatorValueWordUtil(){
         map = new HashMap<>();
         map.put("a", 10);
         map.put("e", 20);
@@ -37,23 +37,23 @@ public class CalculatorValueUtil {
         map.put("z", 21);
     }
 
-    public int calculateVogais(String palavra) {
-        int valorTotalVogais = 0;
-        for (char letra : palavra.toLowerCase().toCharArray()) {
-            if (String.valueOf(letra).matches("[aeiou]")) {
-                valorTotalVogais += map.getOrDefault(String.valueOf(letra), 0);
+    public int calculateVoweis(String word) {
+        int voweisTotalValue = 0;
+        for (char letter : word.toLowerCase().toCharArray()) {
+            if (String.valueOf(letter).matches("[aeiou]")) {
+                voweisTotalValue += map.getOrDefault(String.valueOf(letter), 0);
             }
         }
-        return valorTotalVogais;
+        return voweisTotalValue;
     }
 
-    public int calculateConsoantes(String palavra) {
-        int valorTotalConsoantes = 0;
-        for (char letra : palavra.toLowerCase().toCharArray()) {
-            if (String.valueOf(letra).matches("[bcdfghjklmnpqrstvwxyz]")) {
-                valorTotalConsoantes += map.getOrDefault(String.valueOf(letra), 0);
+    public int calculateConsonants(String word) {
+        int consonantsTotalValue = 0;
+        for (char letter : word.toLowerCase().toCharArray()) {
+            if (String.valueOf(letter).matches("[bcdfghjklmnpqrstvwxyz]")) {
+                consonantsTotalValue += map.getOrDefault(String.valueOf(letter), 0);
             }
         }
-        return valorTotalConsoantes;
+        return consonantsTotalValue;
     }
 }

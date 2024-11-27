@@ -4,17 +4,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Guess implements Parcelable {
-    private int value;
-    private int attempt;
+    private int inputedAttemp;
+    private int correctValue;
 
-    public Guess(int value, int attempt) {
-        this.value = value;
-        this.attempt = attempt;
+    public Guess(int value, int correctValue) {
+        this.inputedAttemp = value;
+        this.correctValue = correctValue;
     }
 
     protected Guess(Parcel in) {
-        value = in.readInt();
-        attempt = in.readInt();
+        inputedAttemp = in.readInt();
+        correctValue = in.readInt();
     }
 
     public static final Creator<Guess> CREATOR = new Creator<Guess>() {
@@ -29,24 +29,24 @@ public class Guess implements Parcelable {
         }
     };
 
-    public int getValue() {
-        return value;
+    public int getInputedAttemp() {
+        return inputedAttemp;
     }
 
-    public int getAttempt() {
-        return attempt;
+    public int getCorrectValue() {
+        return correctValue;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public void setInputedAttemp(int inputedAttemp) {
+        this.inputedAttemp = inputedAttemp;
     }
 
-    public void setAttempt(int attempt) {
-        this.attempt = attempt;
+    public void setCorrectValue(int correctValue) {
+        this.correctValue = correctValue;
     }
 
     public boolean isResultCorrect() {
-        return value == attempt;
+        return inputedAttemp == correctValue;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class Guess implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeInt(value);
-        parcel.writeInt(attempt);
+        parcel.writeInt(inputedAttemp);
+        parcel.writeInt(correctValue);
     }
 }

@@ -1,15 +1,15 @@
 package com.erick.prova1_erick_jhone_rodrigues_da_silva.model;
 
-public class ItemList {
+public class Sign {
     private String name;
     private String associateWord;
     private int image;
 
-    public ItemList(){
+    public Sign(){
 
     }
 
-    public ItemList(String data, String associateWord, int image){
+    public Sign(String data, String associateWord, int image){
         this.name = data;
         this.associateWord = associateWord;
         this.image = image;

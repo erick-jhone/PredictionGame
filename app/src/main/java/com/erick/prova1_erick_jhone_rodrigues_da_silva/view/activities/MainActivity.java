@@ -11,9 +11,10 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.R;
-import com.erick.prova1_erick_jhone_rodrigues_da_silva.view.adapter.ItemListAdapter;
-import com.erick.prova1_erick_jhone_rodrigues_da_silva.data.ItemListRepository;
-import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.ItemList;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.utils.navigation.NavigationUtils;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.view.adapter.SignItemAdapter;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.data.SignRepository;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.Sign;
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.view.MyDialog;
 
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ public class MainActivity extends AppCompatActivity implements   AdapterView.OnI
 
     private ListView listViewOptions;
     private Button buttonSkip;
-    private ItemListAdapter adapter;
-    private ArrayList<ItemList> items;
+    private SignItemAdapter adapter;
+    private ArrayList<Sign> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,39 +32,39 @@ public class MainActivity extends AppCompatActivity implements   AdapterView.OnI
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        initUIComponents();
+    }
+
+    private void initUIComponents() {
         buttonSkip = findViewById(R.id.button);
-        buttonSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ValuesActivity.class));
-            }
-        });
+        setupListeners();
 
         listViewOptions = findViewById(R.id.listViewOptions);
         makeAdapter();
         listViewOptions.setAdapter(adapter);
     }
 
+    private void setupListeners() {
+        buttonSkip.setOnClickListener(view -> NavigationUtils.navigate(MainActivity.this, ValuesActivity.class));
+    }
+
     private void makeAdapter() {
         if(items == null){
-            items = ItemListRepository.getMockedItemList(this);
+            items = SignRepository.getMockedsSignItemList(this);
         }
-        adapter = new ItemListAdapter(this, items);
+        adapter = new SignItemAdapter(this, items);
         listViewOptions.setAdapter(adapter);
         listViewOptions.setOnItemClickListener(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        ItemList item = (ItemList) adapterView.getItemAtPosition(i);
+        Sign item = (Sign) adapterView.getItemAtPosition(i);
         openDialog(item);
     }
 
-    public void openDialog(ItemList item){
-        MyDialog dialog = new MyDialog(item);
+    public void openDialog(Sign item){
+        MyDialog dialog = new MyDialog(item, this);
         dialog.show(getSupportFragmentManager(), "MyDialog");
     }
-
-
-
 }

@@ -10,4 +10,14 @@
     <string name="jogada">Jogada</string>
     <string name="valor_esperado">Valor esperado</string>
     <string name="resultado">Resultado</string>
+    <string name="voc_acertou_parab_ns">Você acertou, parabéns!</string>
+    <string name="ver_gabarito">Ver gabarito</string>
+    <string name="descricao">Descrição</string>
+    <string name="nome">"Nome: "</string>
+    <string name="palavra_associada">Palavra associada</string>
+    <string name="iniciar_jogo">Iniciar jogo</string>
+    <string name="valor_nome">"Valor nome: "</string>
+    <string name="valor_palavra">"Valor palavra: "</string>
+    <string name="total">"Total: "</string>
+    <string name="insira_um_numero_valido">Insira um número válido</string>
 </resources>

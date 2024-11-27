@@ -7,29 +7,26 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.erick.prova1_erick_jhone_rodrigues_da_silva.R;
-import com.erick.prova1_erick_jhone_rodrigues_da_silva.data.ItemListRepository;
-import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.ItemList;
-import com.erick.prova1_erick_jhone_rodrigues_da_silva.utils.CalculatorValueUtil;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.data.SignRepository;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.model.Sign;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.utils.CalculatorValueWordUtil;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.utils.navigation.NavigationKeys;
+import com.erick.prova1_erick_jhone_rodrigues_da_silva.utils.navigation.NavigationUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ValuesActivity extends AppCompatActivity {
 
     private TextView textViewNameValue, textViewWordValue, textViewTotalValue;
     private ImageView imageView;
     private Button buttonSkip;
-    private ArrayList<ItemList> items;
-    private ItemListRepository itemListRepository;
+    private ArrayList<Sign> items;
+    private SignRepository signRepository;
     private int itemIndice = 0;
-    private CalculatorValueUtil calculatorValueUtil;
+    private CalculatorValueWordUtil calculatorValueWordUtil = new CalculatorValueWordUtil();
 
 
     @Override
@@ -37,28 +34,10 @@ public class ValuesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_values);
-        calculatorValueUtil = new CalculatorValueUtil();
         getItems();
         initUIComponents();
-        setValues(0);
-
-        buttonSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(itemIndice < items.size() - 1){
-                    itemIndice++;
-                    setValues(itemIndice);
-                } else {
-                    buttonSkip.setText("Iniciar jogo");
-
-                }
-
-                if(buttonSkip.getText().equals("Iniciar jogo")){
-                    Intent intent = new Intent(ValuesActivity.this, NewGameActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
+        setSignValues(0);
+        setupListeners();
     }
 
     private void initUIComponents() {
@@ -69,19 +48,40 @@ public class ValuesActivity extends AppCompatActivity {
         buttonSkip = findViewById(R.id.buttonSkip);
     }
 
+    private void setupListeners() {
+        buttonSkip.setOnClickListener(view -> {
+
+            changeSignCurrentViewed();
+            if (buttonSkip.getText().equals(getString(R.string.iniciar_jogo))) {
+                NavigationUtils.navigate(ValuesActivity.this, NewGameActivity.class);
+            }
+
+        });
+    }
+
+    private void changeSignCurrentViewed() {
+        if (itemIndice < items.size() - 1) {
+            itemIndice++;
+            setSignValues(itemIndice);
+        } else {
+            buttonSkip.setText(getString(R.string.iniciar_jogo));
+        }
+    }
+
+
     private void getItems() {
         setupRepository();
-        items = itemListRepository.getMockedItemList(this);
+        items = signRepository.getMockedsSignItemList(this);
     }
 
     private void setupRepository() {
-        itemListRepository = new ItemListRepository();
+        signRepository = new SignRepository();
     }
 
-    private void setValues(int itemIndice) {
+    private void setSignValues(int itemIndice) {
         imageView.setImageResource(items.get(itemIndice).getImage());
-        textViewNameValue.setText("Valor nome: " + calculatorValueUtil.calculateVogais(items.get(itemIndice).getName()));
-        textViewWordValue.setText("Valor palavra: " + calculatorValueUtil.calculateConsoantes(items.get(itemIndice).getAssociateWord()));
-        textViewTotalValue.setText("Total: " + (calculatorValueUtil.calculateVogais(items.get(itemIndice).getName()) + calculatorValueUtil.calculateConsoantes(items.get(itemIndice).getAssociateWord())));
+        textViewNameValue.setText(getString(R.string.valor_nome) + calculatorValueWordUtil.calculateVoweis(items.get(itemIndice).getName()));
+        textViewWordValue.setText(getString(R.string.valor_palavra) + calculatorValueWordUtil.calculateConsonants(items.get(itemIndice).getAssociateWord()));
+        textViewTotalValue.setText(getString(R.string.total) + (calculatorValueWordUtil.calculateVoweis(items.get(itemIndice).getName()) + calculatorValueWordUtil.calculateConsonants(items.get(itemIndice).getAssociateWord())));
     }
 }
